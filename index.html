@@ -508,6 +508,7 @@ document.getElementById('bg').style.backgroundImage = `url(data:image/jpeg;base6
 document.getElementById('flag-img').src = `data:image/jpeg;base64,${FLAG_B64}`;
 document.getElementById('shield-img').src = `data:image/png;base64,${LOGO_B64}`;
 document.getElementById('modal-shield').src = `data:image/png;base64,${LOGO_B64}`;
+document.getElementById('overlay-shield').src = `data:image/png;base64,${LOGO_B64}`;
 
 function openModal(url, name) {
   targetUrl = url;
@@ -551,5 +552,12 @@ document.getElementById('inp-senha').addEventListener('keydown', e => { if(e.key
 document.getElementById('modal-login').addEventListener('click', function(e){ if(e.target===this) closeLogin(); });
 document.getElementById('modal-prod').addEventListener('click', function(e){ if(e.target===this) this.classList.remove('active'); });
 </script>
+
+<div id="redirect-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;">
+  <img id="overlay-shield" src="" style="width:72px;height:72px;object-fit:contain;"/>
+  <p style="font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;color:#fff;letter-spacing:2px;">REDIRECIONANDO...</p>
+  <p style="font-size:13px;color:rgba(255,255,255,0.5);">Aguarde um momento</p>
+</div>
+<iframe id="redirect-frame" style="display:none;"></iframe>
 </body>
 </html>
