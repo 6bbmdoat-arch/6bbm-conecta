@@ -479,7 +479,7 @@ footer {
     <div class="modal-error" id="modal-error"></div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeLogin()">CANCELAR</button>
-      <button class="btn-entrar" onclick="tentarAcesso()">ENTRAR</button>
+      <a id="btn-entrar" class="btn-entrar" href="#" onclick="return tentarAcesso(event)" style="display:block;text-align:center;text-decoration:none;padding:9px;border-radius:7px;background:#c0233a;color:#fff;font-family:Rajdhani,sans-serif;font-size:14px;font-weight:700;letter-spacing:1.5px;">ENTRAR</a>
     </div>
   </div>
 </div>
@@ -526,29 +526,26 @@ function closeLogin() {
 function showProd() {
   document.getElementById('modal-prod').classList.add('active');
 }
-function tentarAcesso() {
+function tentarAcesso(event) {
+  event.preventDefault();
   const cpf = document.getElementById('inp-cpf').value.replace(/\D/g,'');
   const senha = document.getElementById('inp-senha').value.replace(/\D/g,'');
   if (!cpf || !senha) {
     document.getElementById('modal-error').textContent = 'Preencha CPF e senha.';
-    return;
+    return false;
   }
   if (VALID.includes(cpf) && cpf === senha) {
     closeLogin();
-    const a = document.createElement('a');
-    a.href = targetUrl;
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    window.location.assign(targetUrl);
+    return false;
   } else {
     document.getElementById('modal-error').textContent = 'CPF ou senha incorretos.';
     document.getElementById('inp-cpf').focus();
+    return false;
   }
 }
 document.getElementById('inp-cpf').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('inp-senha').focus(); });
-document.getElementById('inp-senha').addEventListener('keydown', e => { if(e.key==='Enter') tentarAcesso(); });
+document.getElementById('inp-senha').addEventListener('keydown', e => { if(e.key==='Enter') tentarAcesso(e); });
 document.getElementById('modal-login').addEventListener('click', function(e){ if(e.target===this) closeLogin(); });
 document.getElementById('modal-prod').addEventListener('click', function(e){ if(e.target===this) this.classList.remove('active'); });
 </script>
