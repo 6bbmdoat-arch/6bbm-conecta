@@ -534,7 +534,13 @@ function tentarAcesso() {
   }
   if (VALID.includes(cpf) && cpf === senha) {
     closeLogin();
-    window.location.href = targetUrl;
+    const a = document.createElement('a');
+    a.href = targetUrl;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   } else {
     document.getElementById('modal-error').textContent = 'CPF ou senha incorretos.';
     document.getElementById('inp-cpf').focus();
